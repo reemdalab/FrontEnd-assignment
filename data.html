@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Data</title>
+    <style>
+        h1{
+            justify-content: center;
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th,
+        td {
+            border: 1px solid rgb(76, 76, 125);
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>University Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Alpha Two Code</th>
+                <th>Number of Domains</th>
+            </tr>
+        </thead>
+        <tbody id="university-data">
+
+        </tbody>
+    </table>
+
+    <script>
+        fetch('http://universities.hipolabs.com/search?country=United+States')
+            .then(response => response.json())
+            .then(data => {
+                const universityData = data.slice(0, 20); 
+                const tableBody = document.getElementById('university-data');
+                universityData.forEach(university => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${university.name}</td>
+                        <td>${university.country}</td>
+                        <td>${university.alpha_two_code}</td>
+                        <td>${university.domains.length}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+
+</html>

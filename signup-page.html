@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sign Up Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>SignUp</h2>
+        <form id="signup-form">
+            <div>
+                <label for="username">Name</label>
+                <input type="text" id="username" name="username"  pattern="[a-zA-Z0-9-_@]{3,}">
+                <span class="error" id="username-error"></span>
+            </div>
+
+            <div>
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname"  minlength="3" maxlength="15">
+                <span class="error" id="fullname-error"></span>
+            </div>
+
+            <div>
+                <label for="mobile">Mobile Number</label>
+                <input type="text" placeholder="05-xxxxxxxx" id="mobile" name="mobile" pattern="05\d{8}">
+                <span class="error" id="mobile-error"></span>
+            </div>
+
+            <div>
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="18" max="100">
+                <span class="error" id="age-error"></span>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" >
+                <span class="error" id="email-error"></span>
+            </div>
+
+            <div>
+                <label for="country">Country</label>
+                <select id="country" name="country" >
+                    <option value="">Select Country</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">UK</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" 
+                    pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@-_])[A-Za-z\d@-_]{6,24}$">
+                <span class="error" id="password-error"></span>
+            </div>
+            <div>
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" >
+                <span class="error" id="confirm-password-error"></span>
+            </div>
+            <br>
+            <div class="btn">
+                <button type="button" id="clear-button">Clear</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+        <div class="success" id="success-message"></div>
+    </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const fullname = document.getElementById('fullname').value;
+            const mobile = document.getElementById('mobile').value;
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+            const country = document.getElementById('country').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            document.getElementById('username-error').textContent = '';
+            document.getElementById('fullname-error').textContent = '';
+            document.getElementById('mobile-error').textContent = '';
+            document.getElementById('age-error').textContent = '';
+            document.getElementById('email-error').textContent = '';
+            document.getElementById('password-error').textContent = '';
+            document.getElementById('confirm-password-error').textContent = '';
+
+            const usernamePattern = /^[a-zA-Z0-9-_@]{3,}$/;
+            const fullnamePattern = /^.{3,15}$/;
+            const mobilePattern = /^05\d{8}$/;
+            const ageValue = parseInt(age);
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@-_])[A-Za-z\d@-_]{6,24}$/;
+
+            let isValid = true;
+            if (username.trim() === '') {
+                document.getElementById('username-error').textContent = 'Name is required.';
+                isValid = false;
+            } else if (!usernamePattern.test(username)) {
+                document.getElementById('username-error').textContent = 'Username must be at least 3 characters and can contain only letters, digits, hyphens, underscores, and @.';
+                isValid = false;
+            }
+              if (fullname.trim() === '') {
+                document.getElementById('fullname-error').textContent = 'fullname is required.';
+                isValid = false;
+            } else if (!fullnamePattern.test(fullname)) {
+                document.getElementById('fullname-error').textContent = 'Full name must be between 3 and 15 characters.';
+                isValid = false;
+            }
+              if (mobile.trim() === '') {
+                document.getElementById('mobile-error').textContent = 'mobile is required.';
+                isValid = false;
+            } else if (!mobilePattern.test(mobile)) {
+                document.getElementById('mobile-error').textContent = 'Mobile number must start with 05 and have 10 digits.';
+                isValid = false;
+            }
+            if (age !== '' && (ageValue < 18 || ageValue > 100)) {
+                document.getElementById('age-error').textContent = 'Age must be between 18 and 100.';
+                isValid = false;
+            }
+
+               if (email.trim() === '') {
+                document.getElementById('email-error').textContent = 'email is required.';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+             if (password.trim() === '') {
+                document.getElementById('password-error').textContent = 'password is required.';
+                isValid = false;
+            } else if (!passwordPattern.test(password)) {
+                document.getElementById('password-error').textContent = 'Password must be 6 to 24 ';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirm-password-error').textContent = 'Passwords do not match.';
+                isValid = false;
+            }
+            if (isValid) {
+                document.getElementById('success-message').textContent = 'Registration successful!';
+                document.getElementById('signup-form').reset();
+            }
+
+        });
+
+        document.getElementById('clear-button').addEventListener('click', function () {
+            document.getElementById('signup-form').reset();
+            document.getElementById('success-message').innerHTML = '';
+        });
+    </script>
+</body>
+
+</html>

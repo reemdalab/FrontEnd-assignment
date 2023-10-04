@@ -1,0 +1,121 @@
+ body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+ }
+
+ .container {
+     padding: 20px;
+     background-color: #f0f5fa;
+     justify-content: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+ h2 {
+     font-family: Arial, Helvetica, sans-serif;
+     font-weight: 500;
+     font-size: 15px;
+ }
+
+ form {
+        display: grid;
+        grid-gap: 15px;
+        justify-content: center;
+        grid-template-columns: repeat(2, calc(33.33%));
+        width: 500px;
+        height: 100%;
+ }
+
+ form div {
+     display: flex;
+     flex-direction: column;
+     margin-right: 15px;
+ }
+
+ label {
+     margin-top: 10px;
+     margin-bottom: 10px;
+     font-size: 14px;
+ }
+
+ input[type="text"],
+ input[type="password"],
+ input[type="email"],
+ input[type="number"] {
+     padding: 10px;
+     margin-bottom: 10px;
+     width: 120px;
+     height: 10px;
+     border-radius: 1px;
+     border-width: 1px;
+     border: solid;
+     border-color: #d6dce1;
+ }
+
+ select {
+     width: 145px;
+     height: 33px;
+     border-radius: 1px;
+     border-width: 1px;
+     border: solid;
+     border-color: #d6dce1;
+ }
+
+ .error {
+     color: red;
+     font-size: 9px;
+ }
+
+ .success {
+     color: green;
+     text-align: center;
+     margin-top: 10px;
+ }
+
+ button {
+     padding: 10px;
+     background-color: white;
+     color: black;
+     border: none;
+     border-radius: 3px;
+     cursor: pointer;
+     padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+ }
+
+ button[type="submit"] {
+    background-color: rgb(111, 202, 111);
+    color: #fff;
+
+ }
+
+ .btn {
+     display: flex;
+     flex-direction: row;
+     gap: 10px;
+     margin-top: 40px;
+     justify-content: flex-end;
+ }
+
+ @media only screen and (max-width: 600px) and (min-width:350px) {
+ 
+    .container
+    {
+        align-items: flex-start;
+    }
+    form 
+    {
+        width: auto;
+        display: grid;
+        grid-gap: 15px;
+        justify-content: center;
+        grid-template-columns: repeat(2, calc(45%));
+    } 
+    h2
+    {
+        padding-left: 10px;
+    }  
+
+}
